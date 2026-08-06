@@ -1,4 +1,21 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+class Usuario(AbstractUser):
+    class TipoUsuario(models.TextChoices):
+        Administrador = "Administrador", "Administrador"
+        Usuario = "Usuario", "Usuario"
+
+    email = models.EmailField(unique=True)
+    telefone = models.CharField(max_length=20, blank=True, null=True)
+    tipo = models.CharField(
+        max_length=20,
+        choices=TipoUsuario.choices,
+        default=TipoUsuario.Usuario
+    )
+
+    def __str__(self):
+        return self.get_full_name() or self.username
 
 class Imovel(models.Model):
     titulo = models.CharField(max_length=100)
@@ -14,3 +31,21 @@ class Imovel(models.Model):
 
     def __str__(self):
         return self.titulo
+
+
+class Contrato(models.Model):
+    data_inicio = models.DateField()
+    data_fim = models.DateField(blank=True, null=True)
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.BooleanField(default=True)
+    locador = models.ForeignKey(Usuario, related_name="locador")
+    locatario = models.ForeignKey(Usuario, related_name="locatario")
+
+    def __str__(self):
+        return f"Contrato {self.id}"
+
+class Pagamento(models.Model):
+    data_pagamento = models.DateField()
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.BooleanField(default=False)
+    contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE, related_name="contrato")

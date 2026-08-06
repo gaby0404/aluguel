@@ -7,7 +7,7 @@ class Usuario(AbstractUser):
         Usuario = "Usuario", "Usuario"
 
     email = models.EmailField(unique=True)
-    telefone = models.CharField(max_length=20, blank=True, null=True)
+    celular = models.CharField(max_length=20, blank=True, null=True)
     tipo = models.CharField(
         max_length=20,
         choices=TipoUsuario.choices,
@@ -38,8 +38,8 @@ class Contrato(models.Model):
     data_fim = models.DateField(blank=True, null=True)
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.BooleanField(default=True)
-    locador = models.ForeignKey(Usuario, related_name="locador")
-    locatario = models.ForeignKey(Usuario, related_name="locatario")
+    locador = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING, related_name="locador")
+    locatario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING, related_name="locatario")
 
     def __str__(self):
         return f"Contrato {self.id}"
@@ -49,3 +49,6 @@ class Pagamento(models.Model):
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.BooleanField(default=False)
     contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE, related_name="contrato")
+
+    def __str__(self):
+        return f"Pagamento nº {self.id}"

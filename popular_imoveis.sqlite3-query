@@ -1,0 +1,29 @@
+-- database: ./db.sqlite3
+
+-- Use the ▷ button in the top right corner to run the entire file.
+
+SELECT * FROM api_imovel;
+
+INSERT INTO api_imovel(
+    titulo,
+    tipo,
+    valor_aluguel,
+    status,
+    logradouro,
+    cep,
+    complemento,
+    bairro,
+    cidade,
+    uf
+)VALUES(
+    'casa com 3 dormitórios',
+    'casa',
+     2500,
+     1,
+     'Rua das Flores, 150',
+     '12345678',
+     'próx ao supermercaddo Roxo',
+     'jardim das Plameiras',
+     'Campinas',
+     'SP'
+);

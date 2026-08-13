@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
-from .models import Usuario
-from .models import Imovel
+from .models import *
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import status
@@ -59,24 +58,6 @@ class UsuarioDetailAPIView(APIView):
 
 
 
-
-
-
-@api_view(['GET', 'POST'])
-def listar_imoveis(request):
-    if request.method == 'GET':
-         queryset = Imovel.objects.all().order_by('username')
-         serializers = ImovelSerializers(queryset, many=True)
-         return Response(serializers.data)
-    elif request.method == 'POST':
-         serializers = ImovelSerializers(data = request.data)
-         if serializers.is_valid():
-              serializers.save()
-              return Response(serializers.data, status=status.HTTP_201_CREATED)
-    else:
-         return Response(serializers.data, status=status.HTTP_400_BAD_REQUEST)
-
-
 class ImovelAPIView(APIView):
      def get(self, request):
           imovel = Imovel.objects.all()
@@ -110,4 +91,80 @@ class ImovelDetailAPIView(APIView):
      def delete(self, request, pk):
           imovel = self.get_object(pk)
           imovel.delete()
+          return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+class ContratoAPIView(APIView):
+     def get(self, request):
+          contrato = Contrato.objects.all()
+          serializers = ContratoSerializers(contrato, many=True)
+          return Response(serializers.data)
+
+     def post(self, request):
+          serializers = ContratoSerializers(data = request.data)
+          if serializers.is_valid():
+               serializers.save()
+               return Response(serializers.data, status=status.HTTP_201_CREATED)
+          return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ContratoDetailAPIView(APIView):
+     def get_object(self, pk):
+          return Contrato.objects.get(pk=pk)
+
+     def get(self, request, pk):
+          contrato = self.get_object(pk)
+          serializers = ContratoSerializers(contrato)
+          return Response(serializers.data)
+
+     def put(self, request, pk):
+          contrato = self.get_object(pk)
+          serializers = ContratoSerializers(contrato, data = request.data)
+          if serializers.is_valid():
+               serializers.save()
+               return Response(serializers.data, status=status.HTTP_200_OK)
+          return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+     def delete(self, request, pk):
+          contrato = self.get_object(pk)
+          contrato.delete()
+          return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+class PagamentoAPIView(APIView):
+     def get(self, request):
+          pagamento = Pagamento.objects.all()
+          serializers = PagamentoSerializers(pagamento, many=True)
+          return Response(serializers.data)
+
+     def post(self, request):
+          serializers = PagamentoSerializers(data = request.data)
+          if serializers.is_valid():
+               serializers.save()
+               return Response(serializers.data, status=status.HTTP_201_CREATED)
+          return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class PagamentoDetailAPIView(APIView):
+     def get_object(self, pk):
+          return Pagamento.objects.get(pk=pk)
+
+     def get(self, request, pk):
+          pagamento = self.get_object(pk)
+          serializers = PagamentoSerializers(pagamento)
+          return Response(serializers.data)
+
+     def put(self, request, pk):
+          pagamento = self.get_object(pk)
+          serializers = PagamentoSerializers(pagamento, data = request.data)
+          if serializers.is_valid():
+               serializers.save()
+               return Response(serializers.data, status=status.HTTP_200_OK)
+          return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+     def delete(self, request, pk):
+          pagamento = self.get_object(pk)
+          pagamento.delete()
           return Response(status=status.HTTP_204_NO_CONTENT)

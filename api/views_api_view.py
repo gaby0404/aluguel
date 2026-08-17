@@ -5,6 +5,7 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 @api_view(['GET', 'POST'])
 def listar_usuarios(request):
@@ -59,6 +60,7 @@ class UsuarioDetailAPIView(APIView):
 
 
 class ImovelAPIView(APIView):
+     # permission_classes = [IsAuthenticated]
      def get(self, request):
           imovel = Imovel.objects.all()
           serializers = ImovelSerializers(imovel, many=True)
@@ -135,6 +137,7 @@ class ContratoDetailAPIView(APIView):
 
 
 class PagamentoAPIView(APIView):
+     # permission_classes = [IsAuthenticated]
      def get(self, request):
           pagamento = Pagamento.objects.all()
           serializers = PagamentoSerializers(pagamento, many=True)

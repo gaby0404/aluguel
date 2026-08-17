@@ -1,5 +1,10 @@
 from rest_framework.urls import path
-from .views import *
+from .views_api_view import *
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 
 urlpatterns = [
     path('usuarios', UsuarioAPIView.as_view()),
@@ -12,7 +17,10 @@ urlpatterns = [
     path('pagamento/<int:pk>', PagamentoDetailAPIView.as_view()),
 
     path('contrato', ContratoAPIView.as_view()),
-    path('pagamento/<int:pk>', ContratoDetailAPIView.as_view())
+    path('pagamento/<int:pk>', ContratoDetailAPIView.as_view()),
+
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     
 ] 
 

@@ -14,6 +14,6 @@ class ContratoViewSet(ModelViewSet):
     queryset = Contrato.objects.all()
     serializer_class = ContratoSerializers
 
-class PagamentoViewSet(ModelViewSet)
+class PagamentoViewSet(ModelViewSet):
     queryset = Pagamento.objects.all()
     serializer_class = PagamentoSerializers

@@ -6,6 +6,6 @@ urlpatterns = [
     # path('api/', include('api.urls')),
     path('api/apiview/', include('api.urls_api_view')),
     path('api/generics/', include('api.urls_generics')),
-    path('api/viewset/', include('api.urls_api_viewset'))
+    # path('api/viewset/', include('api.urls_api_viewset'))
 ]
 

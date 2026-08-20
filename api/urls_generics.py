@@ -1,28 +1,16 @@
-from rest_framework.urls import path
+from django.urls import path
 from .views_generics import *
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
-
 
 urlpatterns = [
-    path('usuarios', UsuarioListCreateGeneric.as_view()),
-    path('usuario/<int:pk>', UsuarioUpdateDestroyGeneric.as_view()),
+    path("usuarios/", UsuarioListCreateAPIView.as_view(), name="usuarios-list-create"),
+    path("usuarios/<int:pk>/", UsuarioRetrieveUpdateDestroyAPIView.as_view(), name="usuarios-detail"),
 
-    path('imoveis', ImovelListCreateGeneric.as_view()),
-    path('imovel/<int:pk>', ImovelUpdateDelete.as_view()),
+    path("imoveis/", ImovelListCreateAPIView.as_view(), name="imoveis-list-create"),
+    path("imoveis/<int:pk>/", ImovelRetrieveUpdateDestroyAPIView.as_view(), name="imoveis-detail"),
 
-    path('pagamento', PagamentoListCreateGeneric.as_view()),
-    path('pagamento/<int:pk>', PagamentoUpdateDelete.as_view()),
+    path("contratos/", ContratoListCreateAPIView.as_view(), name="contratos-list-create"),
+    path("contratos/<int:pk>/", ContratoRetrieveUpdateDestroyAPIView.as_view(), name="contratos-detail"),
 
-    path('contrato', ContratoListCreateGeneric.as_view()),
-    path('pagamento/<int:pk>', ContratoUpdateDelete.as_view()),
-
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    
-] 
-
-
-
+    path("pagamentos/", PagamentoListCreateAPIView.as_view(), name="pagamentos-list-create"),
+    path("pagamentos/<int:pk>/", PagamentoRetrieveUpdateDestroyAPIView.as_view(), name="pagamentos-detail"),
+]

@@ -3,37 +3,78 @@ from rest_framework.generics import (
     RetrieveUpdateDestroyAPIView
 )
 
-from .models import *
-from .serializers import *
+from .models import (
+    Usuario,
+    Imovel,
+    Contrato,
+    Pagamento
+)
 
-class UsuarioListCreateGeneric(ListCreateAPIView):
+from .serializers import (
+    UsuarioSerializer,
+    ImovelSerializer,
+    ContratoSerializer,
+    PagamentoSerializer
+)
+
+
+# -------------------------
+# USUARIO
+# -------------------------
+
+class UsuarioListCreateAPIView(ListCreateAPIView):
     queryset = Usuario.objects.all()
-    serializers_class = UsuarioSerializers
+    serializer_class = UsuarioSerializer
 
-class UsuarioUpdateDestroyGeneric(RetrieveUpdateDestroyAPIView):
+
+class UsuarioRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Usuario.objects.all()
-    serializer_class = UsuarioSerializers
+    serializer_class = UsuarioSerializer
 
-class ImovelListCreateGeneric(ListCreateAPIView):
+
+# -------------------------
+# IMOVEL
+# -------------------------
+
+class ImovelListCreateAPIView(ListCreateAPIView):
     queryset = Imovel.objects.all()
-    serializer_class = ImovelSerializers
+    serializer_class = ImovelSerializer
 
-class ImovelUpdateDelete(RetrieveUpdateDestroyAPIView):
+
+class ImovelRetrieveUpdateDestroyAPIView(
+    RetrieveUpdateDestroyAPIView
+):
     queryset = Imovel.objects.all()
-    serializer_class = ImovelSerializers
+    serializer_class = ImovelSerializer
 
-class ContratoListCreateGeneric(ListCreateAPIView):
+
+# -------------------------
+# CONTRATO
+# -------------------------
+
+class ContratoListCreateAPIView(ListCreateAPIView):
     queryset = Contrato.objects.all()
-    serializer_class = ContratoSerializers
+    serializer_class = ContratoSerializer
 
-class ContratoUpdateDelete(RetrieveUpdateDestroyAPIView):
+
+class ContratoRetrieveUpdateDestroyAPIView(
+    RetrieveUpdateDestroyAPIView
+):
     queryset = Contrato.objects.all()
-    serializer_class = ContratoSerializers
+    serializer_class = ContratoSerializer
 
-class PagamentoListCreateGeneric(ListCreateAPIView):
-    queryset = Pagamento.objects.all()
-    serializer_class = PagamentoSerializers
 
-class PagamentoUpdateDelete(RetrieveUpdateDestroyAPIView):
+# -------------------------
+# PAGAMENTO
+# -------------------------
+
+class PagamentoListCreateAPIView(ListCreateAPIView):
     queryset = Pagamento.objects.all()
-    serializer_class = PagamentoSerializers
+    serializer_class = PagamentoSerializer
+
+
+class PagamentoRetrieveUpdateDestroyAPIView(
+    RetrieveUpdateDestroyAPIView
+):
+    queryset = Pagamento.objects.all()
+    serializer_class = PagamentoSerializer
